@@ -1,0 +1,48 @@
+
+services:
+  app:
+    build:
+      context: ./docker/php-fpm
+      dockerfile: Dockerfile
+    container_name: badespi_laravel_app
+    ports:
+      - "5173:5173"
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./src:/var/www
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+  nginx:
+    build:
+      context: ./docker/nginx
+    container_name: badespi_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./src:/var/www
+    depends_on:
+      - app
+    networks:
+      - app-network
+  mysql:
+    image: mysql:8.0
+    container_name: badespi_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root  
+      MYSQL_DATABASE: laravel 
+      MYSQL_USER: root 
+      MYSQL_PASSWORD: root  
+    ports:
+    - "3306:3306"
+    networks:
+      - app-network
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
+networks:
+  app-network:
+    driver: bridge
+
