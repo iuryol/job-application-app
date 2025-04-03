@@ -15,10 +15,10 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
     Route::resource('jobs',JobController::class);
     Route::post('jobs/{job}/stop',[JobController::class,'stop'])->name('jobs.stop');
     Route::post('jobs/{job}/open',[JobController::class,'open'])->name('jobs.open');
+    Route::get('/users', [UserController::class, 'index'])->name('users.index'); 
 });
 
 
-Route::get('/users', [UserController::class, 'index'])->name('users.index'); 
 Route::get('/users/create', [UserController::class, 'create'])->name('users.create'); 
 Route::post('/users', [UserController::class, 'store'])->name('users.store'); 
 Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show'); 

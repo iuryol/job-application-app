@@ -1,4 +1,34 @@
 
+
+<div class="flex items-center space-x-2  p-2">
+    <form method="GET" action="{{ request()->url() }}" class="flex items-center space-x-2">
+        <input 
+            type="text" 
+            name="search"
+            id="search"
+            value="{{ request('search') }}" 
+            placeholder="Buscar..." 
+            class="w-1/3 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+        >
+   
+        <button type="submit" class="px-2 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300">
+            Pesquisar
+        </button>
+    </form>
+</div>
+
+<div class="flex items-center space-x-2  p-2">
+    <form method="GET" action="{{ request()->url() }}" class="flex items-center space-x-2">
+        <label for="perPage" class="text-gray-700">Itens por página:</label>
+        <select name="perPage" id="perPage" onchange="this.form.submit()" class="p-2 border border-gray-300 rounded-lg">
+            <option value="5" {{ request('perPage') == 5 ? 'selected' : '' }}>5</option>
+            <option value="10" {{ request('perPage') == 10 ? 'selected' : '' }}>10</option>
+            <option value="25" {{ request('perPage') == 25 ? 'selected' : '' }}>25</option>
+            <option value="50" {{ request('perPage') == 50 ? 'selected' : '' }}>50</option>
+        </select>
+    </form>
+</div>
+
 <table class="w-full border-collapse border  border-gray-300 shadow-md">
     <thead class="bg-blue-600  text-white">
         <tr>
@@ -51,5 +81,5 @@
 </table>
 
 <div class="mt-4">
-    {{ $jobs->links() }}
+    {{ $jobs->links('components.pagination') }}
 </div>

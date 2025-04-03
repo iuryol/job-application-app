@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 .qodo
-=======
 /vendor/
 node_modules/
 npm-debug.log
@@ -31,4 +29,3 @@ Homestead.json
 .env.production
 .phpactor.json
 auth.json
->>>>>>> aa0e4301c9bda6ba07733c2184f0b17f72afef38

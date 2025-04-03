@@ -38,7 +38,7 @@
                                 @endauth
                                 @auth('admin')
                                     <li>
-                                        <a href="{{ route('users.index') }}"  class="block text-gray-800 px-4 py-2 hover:bg-blue-100 hover:rounded-md">
+                                        <a href="{{ route('admin.users.index') }}"  class="block text-gray-800 px-4 py-2 hover:bg-blue-100 hover:rounded-md">
                                             Gerenciar canditados
                                         </a>
                                     </li>

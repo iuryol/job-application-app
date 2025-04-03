@@ -14,10 +14,21 @@ use Illuminate\Validation\Rule;
 class JobController extends Controller
 {
    
-    public function index(): View
+    public function index(Request $request): View
     {
-        $jobs = Job::latest()->paginate(10);
-        return view('job-list',compact('jobs'));
+        $query = Job::query();
+       // $perPage = $request->integer('per_page', default: 10);
+        if ($request->filled('search')) {
+            $query->where('title', 'LIKE', '%' . $request->search . '%')
+                  ->orWhere('company', 'LIKE', '%' . $request->search . '%')
+                  ->orWhere('location', 'LIKE', '%' . $request->search . '%');
+        }
+
+        $perPage = $request->get('perPage', 10);
+    
+        $jobs = $query->paginate($perPage)->withQueryString(); // <-- Mantém o parâmetro search na paginação
+    
+        return view('job-list', compact('jobs'));
     }
 
    
