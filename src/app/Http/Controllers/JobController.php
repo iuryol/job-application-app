@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Enums\JobType;
 use App\Enums\JobStatus;
+use App\Http\Requests\StoreJobRequest;
+use App\Http\Requests\UpdateJobRequest;
+use App\Interfaces\JobRepositoryInterface;
 use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -13,44 +16,31 @@ use Illuminate\Validation\Rule;
 
 class JobController extends Controller
 {
+    public function __construct(
+        protected JobRepositoryInterface $repository
+        ){}
    
     public function index(Request $request): View
     {
-        $query = Job::query();
-       // $perPage = $request->integer('per_page', default: 10);
-        if ($request->filled('search')) {
-            $query->where('title', 'LIKE', '%' . $request->search . '%')
-                  ->orWhere('company', 'LIKE', '%' . $request->search . '%')
-                  ->orWhere('location', 'LIKE', '%' . $request->search . '%');
-        }
-
-        $perPage = $request->get('perPage', 10);
-    
-        $jobs = $query->paginate($perPage)->withQueryString(); // <-- Mantém o parâmetro search na paginação
-    
+        $search =  $request->search;
+        $perPage = $request->get('perPage');
+        $jobs = $this->repository->getAllFiltered($search,$perPage);
         return view('job-list', compact('jobs'));
     }
 
    
     public function homeCandidate(): View
     {
-        $jobs = Job::latest()->paginate(10);
+        $jobs = $this->repository->getAll(10);
         return view('home-candidate', compact('jobs'));
     }
 
     
-    public function store(Request $request): RedirectResponse
+    public function store(StoreJobRequest $request): RedirectResponse
     {
-        $data = $request->validate([
-            'title' => 'required|string|max:255',
-            'company' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
-            'description' => 'required',
-            'type' => ['required', Rule::enum(JobType::class)],
-        ]);
+        $data = $request->validated();
         $data['recruiter_id'] = Auth::id();
-
-        Job::create($data);
+        $this->repository->create($data);
         return redirect()->route('admin.jobs.index')->with('success', 'Vaga criada com sucesso!');
     }
 
@@ -67,39 +57,29 @@ class JobController extends Controller
     }
 
    
-    public function update(Request $request, Job $job): RedirectResponse
+    public function update(UpdateJobRequest $request, Job $job): RedirectResponse
     {
-        $data = $request->validate([
-            'title' => 'required|string|max:255',
-            'company' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
-            'description' => 'required',
-            'type' => ['required', Rule::enum(JobType::class)],
-        ]);
-
-        $job->update($data);
-
+        $data = $request->validated();
+        $this->repository->update($data,$job);
         return redirect()->route('admin.jobs.index')->with('success', 'Vaga atualizada com sucesso!');
     }
 
     
     public function destroy(Job $job): RedirectResponse
     {
-        $job->delete();
+        $this->repository->delete($job);
         return back()->with('success', 'Vaga excluída com sucesso!');
     }
 
     public function stop(Job $job)
     {
-        $job->status = JobStatus::STOPPED->value;
-        $job->save();
+        $this->repository->changeStatus($job,JobStatus::STOPPED->value);
         return back()->with('success', 'Vaga pausada com sucesso!');
     }
 
     public function open(Job $job)
     {
-        $job->status = JobStatus::OPENED->value;
-        $job->save();
+        $this->repository->changeStatus($job,JobStatus::OPENED->value);
         return back()->with('success', 'Vaga aberta com sucesso!');
     }
 }

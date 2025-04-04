@@ -13,9 +13,11 @@
         @endif
     </head>
     @include('layouts.navigation')
-    <body class="font-sans antialiased  ">
-        <div class="container mx-auto p-4">
+    <body class="font-sans antialiased flex flex-col   ">
+        <div class="container  mx-auto p-4 ">
             @yield('content')
+            
         </div>
+        @include('components.footer')
     </body>
 </html>

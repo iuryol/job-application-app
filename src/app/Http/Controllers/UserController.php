@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Interfaces\UserRepositoryInterface;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
+
 
 class UserController extends Controller
 {
+    public function __construct(
+        protected UserRepositoryInterface $repository
+    ){}
 
     public function index()
     {
-        $candidates = User::latest()->paginate(20);
+        $candidates = $this->repository->getAll();
         return view('user-list',compact('candidates'));
     }
     public function create()
@@ -20,15 +26,10 @@ class UserController extends Controller
         return view('user-register');
     }
 
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|max:255|unique:users',
-            'password' => ['required','string','confirmed',Password::defaults()],
-        ]);
-        User::create($data);
-
+        $data = $request->validated();
+        $this->repository->create($data);
         return redirect()->route('login.candidate')->with('success', 'Usuário criado');
     }
 
@@ -37,25 +38,17 @@ class UserController extends Controller
         return view('user-edit',compact('user'));
     }
 
-    public function update(Request $request,User $user)
+    public function update(UpdateUserRequest $request,User $user)
     {
-      
-        $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => ['required','string','max:255',Rule::unique('users')->ignore($user)],
-            'linkedin' => 'string|max:255|nullable',
-        ]);
-        
-        $user->update($data);
-
+        $data = $request->validated();
+        $this->repository->update($data,$user);
         return redirect()->route('home.candidate')->with('success', 'Usuário alterado');
     }
 
 
     public function destroy(User $user)
     {
-        $user->delete();
-        
+        $this->repository->delete($user);
         return redirect()->route('users.index')->with('success', 'Candidato deletado');
     }
 }

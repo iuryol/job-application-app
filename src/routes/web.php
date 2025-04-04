@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Route;
 
 require 'auth.php';
 require 'admin.php';
+
+
 Route::view('/','home')->name('home');
-
 Route::get('/jobs', [JobController::class, 'homeCandidate'])->name('home.candidate')->middleware('auth:user');
-
 Route::fallback([ErrorController::class,'fallback'])->name('fallback');
 
 
