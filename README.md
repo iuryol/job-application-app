@@ -2,7 +2,7 @@
 A job application web app for technical test
 
 ## Passos pra inicialização
-
+<sub>
 # 1. Acesse a pasta 'src'
 cd src
 
@@ -23,11 +23,11 @@ docker compose exec app npm run build
 
 # 7. Execute as migrations e seeds
 docker compose exec app php artisan migrate:fresh --seed
-eed
 
+</sub>
 ######## 
 
-👥 Credenciais de acesso
+# 👥 Credenciais de acesso
 Candidato
 
     Email: tomcruise@dev.com
