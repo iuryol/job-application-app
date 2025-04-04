@@ -30,4 +30,4 @@ Homestead.json
 .phpactor.json
 auth.json
 
-docker/mysql/laravel
+docker/mysql/laravel/*
