@@ -24,6 +24,9 @@ docker compose exec app npm run build
 # 7. Execute as migrations e seeds
 docker compose exec app php artisan migrate:fresh --seed
 
+#  Caso queira rodar os test
+docker compose exec app ./vendor/bin/pest
+
 </sub>
 ######## 
 
