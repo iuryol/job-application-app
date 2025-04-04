@@ -1,5 +1,5 @@
 <table class="w-full border-collapse border  border-gray-300 shadow-md">
-    <thead class="bg-blue-600  text-white">
+    <thead class="bg-indigo-600  text-white">
         <tr>
             <th class="px-4 py-2 text-left">Nome</th>
             <th class="px-4 py-2 text-left">Email</th>
@@ -12,7 +12,6 @@
                 <td class="px-4 py-2">{{ $candidate->name }}</td>
                 <td class="px-4 py-2">{{ $candidate->email }}</td> 
                 <td class="px-4 py-2 flex space-x-2">
-                    <a href="" class="text-blue-500 hover:underline">Ver</a>
                     <form method="POST" action="{{ route('users.destroy', $candidate->id) }}" onsubmit="return confirm('Tem certeza que deseja excluir?');">
                         @csrf
                         @method('DELETE')
@@ -32,6 +31,6 @@
     </tbody>
 </table>
 
-<div class="mt-4">
-    {{ $candidates->links() }}
+<div class=" flex flex-col  justify-center items-center">
+    {{ $candidates->links('components.pagination') }}
 </div>

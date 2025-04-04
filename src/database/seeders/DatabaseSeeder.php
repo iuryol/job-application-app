@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         UserSeeder::class
        ]);
 
-       Job::factory()->count(10)->create();
+       Job::factory()->count(40)->create();
+       User::factory()->count(40)->create();
     }
 }

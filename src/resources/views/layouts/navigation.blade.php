@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <title>Minha Aplicação</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="font-sans bg-gray-100">
+
+<body class=" bg-gray-100">
 
     <!-- Navbar -->
-    <nav class="bg-blue-600 p-2 shadow-md">
+    <nav class="bg-indigo-600 p-2 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
             <div class="text-white text-xl">
-                <a href="{{ url('/') }}">Minha Aplicação</a>
+                <a href="{{ url('/') }}">My Job Market</a>
             </div>
            
             <div class="relative">
@@ -20,9 +23,8 @@
                 @auth
                     <!-- Botão do usuário -->
                    
-                    <button id="user-button" class="text-white focus:outline-none hover:bg-blue-700 p-2 rounded-md">
+                    <button id="user-button" class="text-white focus:outline-none hover:bg-indigo-800 p-2 rounded-md">
                         {{ Auth::user()->name }}
-                        
                     </button>
 
                     <!-- Menu dropdown-->
@@ -31,20 +33,20 @@
                             <li>
                                 @auth('user')
                                     <li>
-                                        <a href="{{ route('users.edit', Auth::id()) }}"  class="block text-gray-800 px-4 py-2 hover:bg-blue-100 hover:rounded-md">
+                                        <a href="{{ route('users.edit', Auth::id()) }}"  class="block text-gray-800 px-4 py-2 hover:bg-indigo-700 hover:text-white hover:rounded-md">
                                             Editar conta
                                         </a>
                                     </li>
                                 @endauth
                                 @auth('admin')
                                     <li>
-                                        <a href="{{ route('admin.users.index') }}"  class="block text-gray-800 px-4 py-2 hover:bg-blue-100 hover:rounded-md">
+                                        <a href="{{ route('admin.users.index') }}"  class="block text-gray-800 px-4 py-2 hover:bg-indigo-700 hover:text-white hover:rounded-md">
                                             Gerenciar canditados
                                         </a>
                                     </li>
                                 @endauth
                                 <a href="#" 
-                                   class="block text-gray-800 px-4 py-2 hover:bg-blue-100 hover:rounded-md"
+                                   class="block text-gray-800 px-4 py-2 hover:bg-indigo-700 hover:rounded-md hover:text-white"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     Sair
                                 </a>
@@ -78,17 +80,17 @@
                     <!-- Botão de login -->
                    
 
-                    <button id="login-button" class="text-white focus:outline-none hover:bg-blue-700 p-2 rounded-md">
+                    <button id="login-button" class="text-white focus:outline-none hover:bg-indigo-700 p-2 rounded-md">
                         Login
                     </button>
                     
-                    <div id="dropdown-menu-login" class="absolute right-0 w-[300px] mt-1 bg-white shadow-lg rounded-lg hidden border ">
+                    <div id="dropdown-menu-login" class="absolute right-0 w-[300px] mt-4 bg-white shadow-lg border-2 rounded-lg hidden border-indigo-500 ">
                         <ul class="list-none p-2">
                             <li>
-                                <a href="{{ route('login.candidate') }}"  class="block text-gray-800 px-4 py-2 hover:bg-blue-100 hover:rounded-md">
+                                <a href="{{ route('login.candidate') }}"  class="block text-gray-800 px-4 py-2 hover:bg-indigo-200 hover:rounded-md">
                                     Login para canditados
                                 </a>
-                                <a href="{{ route('login.recruiter') }}"  class="block text-gray-800 px-4 py-2 hover:bg-blue-100 hover:rounded-md">
+                                <a href="{{ route('login.recruiter') }}"  class="block text-gray-800 px-4 py-2 hover:bg-indigo-200 hover:rounded-md">
                                     Login para recrutadores
                                 </a>
                                

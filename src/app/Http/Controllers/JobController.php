@@ -23,7 +23,7 @@ class JobController extends Controller
     public function index(Request $request): View
     {
         $search =  $request->search;
-        $perPage = $request->get('perPage');
+        $perPage = $request->get('perPage',20);
         $jobs = $this->repository->getAllFiltered($search,$perPage);
         return view('job-list', compact('jobs'));
     }

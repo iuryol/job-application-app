@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class=" w-md mx-auto bg-white p-6 rounded-lg shadow-lg ">
+    <div class="flex flex-col w-md mx-auto bg-white p-6 self-center mt-40  rounded-lg shadow-lg ">
         <h2 class="text-2xl font-semibold text-center mb-4">Login</h2>
         
         <!-- Exibir erros de autenticação -->
@@ -36,7 +36,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="w-full mt-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+            <button type="submit" class="w-full mt-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                 Entrar
             </button>
         </form>

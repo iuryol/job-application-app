@@ -75,8 +75,11 @@ test('deve atualizar conta de canditado e redirecionar',function(){
 
  test('deve apagar a conta de um usuario',function(){
     $user = User::factory()->create();
-    
-    $user->delete();
+    $this->actingAs($user, 'admin');
 
-    $this->assertDatabaseMissing($user);
+    $response = $this->delete(route('users.destroy',$user));
+    
+    $response->assertRedirect(route('admin.users.index'));
+    $this->assertDatabaseMissing('users', ['id' => $user->id]);
+    
  });

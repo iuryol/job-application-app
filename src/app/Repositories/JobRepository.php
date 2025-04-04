@@ -5,6 +5,7 @@ use App\Interfaces\JobRepositoryInterface;
 use App\Models\Job;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 
 class JobRepository implements JobRepositoryInterface {
 
@@ -23,9 +24,9 @@ class JobRepository implements JobRepositoryInterface {
         return $query->paginate($perPage)->withQueryString();
     }
 
-    public function getAll($perPage = 10):LengthAwarePaginator
+    public function getAll($perPage = 20):Paginator
     {
-       return $this->model->latest()->paginate($perPage);
+       return $this->model->latest()->simplePaginate($perPage);
     }
 
     public function create(array $dto): Job

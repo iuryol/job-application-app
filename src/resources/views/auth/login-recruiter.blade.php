@@ -30,12 +30,12 @@
 
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
-                    <input type="checkbox" name="remember" id="remember" class="h-4 w-4 text-blue-500 border-gray-300 rounded">
+                    <input type="checkbox" name="remember" id="remember" class="h-4 w-4 text-indigo-500 border-gray-300 rounded">
                     <label for="remember" class="ml-2 text-sm text-gray-700">Lembrar de mim</label>
                 </div>
             </div>
 
-            <button type="submit" class="w-full mt-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+            <button type="submit" class="w-full mt-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                 Entrar
             </button>
         </form>
